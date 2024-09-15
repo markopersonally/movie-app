@@ -26,7 +26,7 @@ export function Movies() {
   };
 
   return (
-    <>
+    <div>
       {movies.map((film) => (
         <div key={film.id}>
           <h3>{film.title}</h3>
@@ -39,6 +39,6 @@ export function Movies() {
           <h4>{film.release_date}</h4>
         </div>
       ))}
-    </>
+    </div>
   );
 }
