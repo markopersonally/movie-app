@@ -2,7 +2,9 @@ import { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import { doSignInWithEmailAndPassword } from "../firebase/auth";
 import { useAuth } from "../contexts/authContext/authContext";
 import { useNavigate } from "react-router-dom";
-
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Link from '@mui/material/Link';
 interface LoginDetails {
   email: string;
   password: string;
@@ -49,30 +51,35 @@ export function Login() {
   };
 
   return (
-    <form onSubmit={submitHandler}>
-      <label>
-        Email:
-        <input
-          type="email"
-          name="email"
-          value={loginDetails.email}
-          onChange={changeHandler}
-          required
-        />
-      </label>
-      <label>
-        Password:
-        <input
-          type="password"
-          name="password"
-          value={loginDetails.password}
-          onChange={changeHandler}
-          required
-        />
-      </label>
-      <button type="submit" disabled={isSigningIn}>
+    <form onSubmit={submitHandler} className="mt-40 flex flex-col">
+      <TextField
+        id="email-login"
+        label="Email"
+        type="email"
+        name="email"
+        autoComplete="current-password"
+        variant="standard"
+        value={loginDetails.email}
+        onChange={changeHandler}
+        required
+        color="secondary"
+      />
+      <TextField
+        id="password-login"
+        label="Password"
+        type="password"
+        name="password"
+        autoComplete="current-password"
+        variant="standard"
+        color="secondary"
+        value={loginDetails.password}
+        onChange={changeHandler}
+        required
+      />
+      <Button type="submit" disabled={isSigningIn}>
         {isSigningIn ? "Signing In..." : "Login"}
-      </button>
+      </Button>
+      <Link href="/register">New Account</Link>
     </form>
   );
 }

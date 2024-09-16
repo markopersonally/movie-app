@@ -2,7 +2,8 @@ import { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import { doCreateUserWithEmailAndPassword } from "../firebase/auth";
 import { useAuth } from "../contexts/authContext/authContext";
 import { useNavigate } from "react-router-dom";
-
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 interface RegisterDetails {
   email: string;
   password: string;
@@ -49,30 +50,34 @@ export function Register() {
   };
 
   return (
-    <form onSubmit={submitHandler}>
-      <label>
-        Email:
-        <input
-          type="email"
-          name="email"
-          value={registerDetails.email}
-          onChange={changeHandler}
-          required
-        />
-      </label>
-      <label>
-        Password:
-        <input
-          type="password"
-          name="password"
-          value={registerDetails.password}
-          onChange={changeHandler}
-          required
-        />
-      </label>
-      <button type="submit" disabled={isSigningIn}>
+    <form onSubmit={submitHandler} className="mt-40 flex flex-col">
+      <TextField
+        id="email-register"
+        label="Email"
+        type="email"
+        name="email"
+        autoComplete="current-password"
+        variant="standard"
+        value={registerDetails.email}
+        onChange={changeHandler}
+        required
+        color="secondary"
+      />
+      <TextField
+        id="password-register"
+        label="Password"
+        type="password"
+        name="password"
+        autoComplete="current-password"
+        variant="standard"
+        color="secondary"
+        value={registerDetails.password}
+        onChange={changeHandler}
+        required
+      />
+      <Button type="submit" disabled={isSigningIn}>
         {isSigningIn ? "Registering..." : "Register"}
-      </button>
+      </Button>
     </form>
   );
 }
