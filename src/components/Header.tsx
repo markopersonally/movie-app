@@ -6,6 +6,7 @@ import { Button } from "@mui/material";
 export function Header() {
   const { userLoggedIn } = useAuth();
 
+  const headerStyle = "p-5 max-w-7xl border-2";
   const ulStyle = "text-xl flex gap-5 justify-center items-center";
 
   const link = "text-black hover:text-violet-300 delay-100";
@@ -15,7 +16,7 @@ export function Header() {
     isActive ? activLink : link;
 
   return (
-    <header>
+    <header className={headerStyle}>
       <nav>
         <ul className={ulStyle}>
           <li>
