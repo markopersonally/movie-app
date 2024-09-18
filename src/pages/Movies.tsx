@@ -51,18 +51,20 @@ export function Movies() {
           <SearchIcon />
         </IconButton>
       </Paper>
-      {filteredMovies.map((film) => (
-        <div key={film.id} className="">
-          <h3>{film.title}</h3>
-          {film.poster_path && (
-            <img
-              src={`https://image.tmdb.org/t/p/w300${film.poster_path}`}
-              alt={`${film.title}`}
-            />
-          )}
-          <h4>{film.release_date}</h4>
-        </div>
-      ))}
+      <div className="mt-10 flex flex-wrap gap-5 items-center justify-center">
+        {filteredMovies.map((film) => (
+          <div key={film.id} className="p-5 flex flex-col border-2">
+            <h3>{film.title}</h3>
+            {film.poster_path && (
+              <img
+                src={`https://image.tmdb.org/t/p/w300${film.poster_path}`}
+                alt={`${film.title}`}
+              />
+            )}
+            <h4>{film.release_date}</h4>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
