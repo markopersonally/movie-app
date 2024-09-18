@@ -3,6 +3,11 @@ import axios from "axios";
 
 import { apiKey, popular } from "../data/api";
 
+import Paper from "@mui/material/Paper";
+import InputBase from "@mui/material/InputBase";
+import SearchIcon from "@mui/icons-material/Search";
+import IconButton from "@mui/material/IconButton";
+
 interface Movies {
   id: number;
   title: string;
@@ -12,6 +17,7 @@ interface Movies {
 
 export function Movies() {
   const [movies, setMovies] = useState<Movies[]>([]);
+  const [searchMovie, setSearchMovie] = useState<string>("");
 
   useEffect(() => {
     fetchData();
@@ -25,10 +31,28 @@ export function Movies() {
     });
   };
 
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchMovie(event.target.value);
+  };
+
+  const filteredMovies = movies.filter((movie) =>
+    movie.title.toLowerCase().includes(searchMovie.toLowerCase())
+  );
+
   return (
     <div>
-      {movies.map((film) => (
-        <div key={film.id}>
+      <Paper className="">
+        <InputBase
+          placeholder="Search"
+          value={searchMovie}
+          onChange={handleSearchChange}
+        />
+        <IconButton type="submit">
+          <SearchIcon />
+        </IconButton>
+      </Paper>
+      {filteredMovies.map((film) => (
+        <div key={film.id} className="">
           <h3>{film.title}</h3>
           {film.poster_path && (
             <img
