@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import { apiKey, popular } from "../data/api";
 
-import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
@@ -18,6 +18,8 @@ interface Movies {
 export function Movies() {
   const [movies, setMovies] = useState<Movies[]>([]);
   const [searchMovie, setSearchMovie] = useState<string>("");
+  const [openMovieCart, setOpenMovieCart] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -27,7 +29,6 @@ export function Movies() {
     axios.get(`${popular}?api_key=${apiKey}`).then((response) => {
       const result = response.data.results;
       setMovies(result);
-      console.log(result);
     });
   };
 
@@ -39,18 +40,24 @@ export function Movies() {
     movie.title.toLowerCase().includes(searchMovie.toLowerCase())
   );
 
+  const handleMovieCart = (id: number) => {
+    setOpenMovieCart(true);
+    navigate(`/${id}`);
+  };
+
   return (
     <div>
-      <Paper className="">
+      <div className="m-auto w-[500px] flex justify-center items-center bg-slate-300 rounded-md">
         <InputBase
           placeholder="Search"
           value={searchMovie}
           onChange={handleSearchChange}
+          className="p-2 w-full text-bold"
         />
         <IconButton type="submit">
           <SearchIcon />
         </IconButton>
-      </Paper>
+      </div>
       <div className="mt-10 flex flex-wrap gap-5 items-center justify-center">
         {filteredMovies.map((film) => (
           <div key={film.id} className="p-5 flex flex-col border-2">
@@ -62,6 +69,7 @@ export function Movies() {
               />
             )}
             <h4>{film.release_date}</h4>
+            <button onClick={() => handleMovieCart(film.id)}>See more</button>
           </div>
         ))}
       </div>
