@@ -17,6 +17,7 @@ export function Register() {
     password: "",
   });
   const [isSigningIn, setIsSigningIn] = useState<boolean>(false);
+  const [error, setError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -42,6 +43,7 @@ export function Register() {
           registerDetails.password
         );
       } catch (error) {
+        setError(true);
         console.error("Register failed:", error);
       } finally {
         setIsSigningIn(false);
@@ -50,7 +52,10 @@ export function Register() {
   };
 
   return (
-    <form onSubmit={submitHandler} className="mt-40 flex flex-col">
+    <form
+      onSubmit={submitHandler}
+      className="mt-40 p-10 flex flex-col border-2 bg-slate-300 rounded-xl"
+    >
       <TextField
         id="email-register"
         label="Email"
@@ -78,6 +83,9 @@ export function Register() {
       <Button type="submit" disabled={isSigningIn}>
         {isSigningIn ? "Registering..." : "Register"}
       </Button>
+      {error && (
+        <p className="text-red-600 font-bold">Something went wrong...</p>
+      )}
     </form>
   );
 }

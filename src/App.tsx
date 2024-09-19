@@ -16,7 +16,7 @@ export default function App() {
     <>
       <AuthProvider>
         <div className="bg-[url('./images/main-background.jpg')] absolute top-0 left-0 w-full h-full blur z-[-5]"></div>
-        <div className="relative p-10 bg-zinc-700">
+        <div className="p-10 bg-zinc-700 rounded-xl">
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
