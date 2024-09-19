@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
 import { apiKey, popular } from "../data/api";
-
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
+import { useNavigate } from "react-router-dom";
 
 interface Movies {
   id: number;
@@ -18,7 +16,6 @@ interface Movies {
 export function Movies() {
   const [movies, setMovies] = useState<Movies[]>([]);
   const [searchMovie, setSearchMovie] = useState<string>("");
-  const [openMovieCart, setOpenMovieCart] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,8 +38,7 @@ export function Movies() {
   );
 
   const handleMovieCart = (id: number) => {
-    setOpenMovieCart(true);
-    navigate(`/${id}`);
+    navigate(`/movies/${id}`);
   };
 
   return (
