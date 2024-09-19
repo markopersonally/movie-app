@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/authContext/authContext";
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Link from '@mui/material/Link';
+import Link from "@mui/material/Link";
 interface LoginDetails {
   email: string;
   password: string;
@@ -18,6 +18,7 @@ export function Login() {
     password: "",
   });
   const [isSigningIn, setIsSigningIn] = useState<boolean>(false);
+  const [error, setError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -43,6 +44,7 @@ export function Login() {
           loginDetails.password
         );
       } catch (error) {
+        setError(true);
         console.error("Login failed:", error);
       } finally {
         setIsSigningIn(false);
@@ -51,7 +53,10 @@ export function Login() {
   };
 
   return (
-    <form onSubmit={submitHandler} className="mt-40 flex flex-col">
+    <form
+      onSubmit={submitHandler}
+      className="mt-40 p-10 flex flex-col border-2 bg-slate-300 rounded-xl"
+    >
       <TextField
         id="email-login"
         label="Email"
@@ -79,7 +84,12 @@ export function Login() {
       <Button type="submit" disabled={isSigningIn}>
         {isSigningIn ? "Signing In..." : "Login"}
       </Button>
-      <Link href="/register">New Account</Link>
+      {error && (
+        <p className="text-red-600 font-bold">Something went wrong...</p>
+      )}
+      <Link href="/register">
+        Don't have an account? - Create an new account.
+      </Link>
     </form>
   );
 }
