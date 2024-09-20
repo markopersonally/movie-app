@@ -4,6 +4,7 @@ import { apiKey, popular } from "../data/api";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 
 interface Movies {
@@ -56,16 +57,27 @@ export function Movies() {
       </div>
       <div className="mt-10 flex flex-wrap gap-5 items-center justify-center">
         {filteredMovies.map((film) => (
-          <div key={film.id} className="p-5 flex flex-col border-2">
-            <h3>{film.title}</h3>
+          <div
+            key={film.id}
+            className="p-5  flex flex-col gap-5 bg-slate-600 rounded-lg"
+          >
+            <h3 className="text-xl font-bold text-violet-400">{film.title}</h3>
             {film.poster_path && (
               <img
                 src={`https://image.tmdb.org/t/p/w300${film.poster_path}`}
                 alt={`${film.title}`}
               />
             )}
-            <h4>{film.release_date}</h4>
-            <button onClick={() => handleMovieCart(film.id)}>See more</button>
+            <h4 className="text-xl font-bold text-violet-300">
+              Date: {film.release_date}
+            </h4>
+            <Button
+              onClick={() => handleMovieCart(film.id)}
+              variant="contained"
+              color="secondary"
+            >
+              See more...
+            </Button>
           </div>
         ))}
       </div>
