@@ -1,16 +1,26 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/authContext/authContext";
-import { doSignOut } from "../firebase/auth";
+import { doSignOut as firebaseSignOut } from "../firebase/auth";
 import { Button } from "@mui/material";
 
 export function Header() {
   const { userLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
   const link = "text-violet hover:text-violet-500 transition delay-100";
   const activLink = `${link} text-violet-500 underline`;
 
   const linkStyle = ({ isActive }: { isActive: boolean }) =>
     isActive ? activLink : link;
+
+  const handleSignOut = async () => {
+    try {
+      await firebaseSignOut();
+      navigate("/");
+    } catch (error) {
+      console.error("Sign-out error:", error);
+    }
+  };
 
   return (
     <header className="p-5 max-w-7xl">
@@ -29,7 +39,7 @@ export function Header() {
                 </NavLink>
               </li>
               <li>
-                <Button onClick={doSignOut} color="secondary">
+                <Button onClick={handleSignOut} color="secondary">
                   Logout
                 </Button>
               </li>
