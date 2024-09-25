@@ -55,7 +55,7 @@ export function Login() {
   return (
     <form
       onSubmit={submitHandler}
-      className="mt-40 p-10 flex flex-col border-2 bg-slate-300 rounded-xl"
+      className="mt-40 p-10 flex flex-col gap-2 border-2 bg-slate-300 rounded-xl"
     >
       <TextField
         id="email-login"
