@@ -25,7 +25,7 @@ export function Header() {
   return (
     <header className="p-5 max-w-7xl">
       <nav>
-        <ul className="p-2 bg-slate-600 rounded-lg text-xl flex gap-5 justify-center items-center">
+        <ul className="p-2 bg-slate-600 rounded-lg text-xl flex flex-wrap justify-center items-center gap-5">
           <li>
             <NavLink className={linkStyle} to="/">
               Home

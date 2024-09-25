@@ -43,8 +43,8 @@ export function Movies() {
   };
 
   return (
-    <div>
-      <div className="m-auto w-[500px] flex justify-center items-center bg-slate-300 rounded-md">
+    <div className="md:w-full">
+      <div className="m-auto w-[500px] md:w-max flex justify-center items-center bg-slate-300 rounded-md">
         <InputBase
           placeholder="Search"
           value={searchMovie}
